@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key});
+  final VoidCallback onProfileTap;
+  const HomeHeader({super.key, required this.onProfileTap});
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +12,12 @@ class HomeHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(
-              radius: 22,
-              child: Icon(Icons.person, size: 30, color: Colors.white),
+            GestureDetector(
+              onTap: onProfileTap,
+              child: CircleAvatar(
+                radius: 22,
+                child: Icon(Icons.person, size: 30, color: Colors.white),
+              ),
             ),
             Container(
               width: 300,
