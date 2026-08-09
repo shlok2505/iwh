@@ -2,43 +2,71 @@ import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
   final VoidCallback onProfileTap;
+
   const HomeHeader({super.key, required this.onProfileTap});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // MENU BUTTON
             GestureDetector(
               onTap: onProfileTap,
-              child: CircleAvatar(
-                radius: 22,
-                child: Icon(Icons.person, size: 30, color: Colors.white),
-              ),
-            ),
-            Container(
-              width: 300,
-              height: 35,
-              decoration: BoxDecoration(
-                color: Colors.blueGrey.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: const Center(
-                child: Text(
-                  'I Was Here',
-                  style: TextStyle(
-                    color: Colors.orangeAccent,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto',
-                  ),
+              child: Container(
+                height: 58,
+                width: 58,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F0E6),
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.menu,
+                  size: 30,
+                  color: Color(0xFF526B7A),
                 ),
               ),
             ),
-            SizedBox(width: 44),
+
+            const Spacer(),
+
+            // FOOTPRINTS TITLE
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F0E6),
+                borderRadius: BorderRadius.circular(32),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.12),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: const Text(
+                'Footprints',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF526B7A),
+                ),
+              ),
+            ),
+
+            const Spacer(),
+
+            // Keeps title centered
+            const SizedBox(width: 58),
           ],
         ),
       ),

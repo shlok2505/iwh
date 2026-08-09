@@ -5,42 +5,104 @@ class HomeBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-            icon: const Icon(
-              Icons.location_history_rounded,
-              color: Colors.blueGrey,
-              size: 30,
-            ),
-            onPressed: () {
-              // Handle home button press
-            },
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        padding: const EdgeInsets.only(
+          top: 24,
+          left: 15,
+          right: 15,
+          bottom: 25,
+        ),
+        decoration: const BoxDecoration(
+          color: Color(0xFFF5F0E6),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(38),
+            topRight: Radius.circular(38),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.info_outline_rounded,
-              color: Colors.blueGrey,
-              size: 30,
-            ),
-            onPressed: () {
-              // Handle search button press
-            },
+        ),
+        child: SafeArea(
+          top: false,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              // PAST FOOTPRINTS
+              _bottomButton(
+                icon: Icons.directions_walk,
+                title: 'Past Footprints',
+                iconColor: const Color(0xFF607D6B),
+                backgroundColor: const Color(0xFFE5EBDD),
+                onTap: () {
+                  // TODO
+                },
+              ),
+
+              // ABOUT THIS PLACE
+              _bottomButton(
+                icon: Icons.info_outline,
+                title: 'About This Place',
+                iconColor: const Color(0xFF526B7A),
+                backgroundColor: const Color(0xFFE4EDF2),
+                onTap: () {
+                  // TODO: Navigate to About screen
+                },
+              ),
+
+              // RECENT BEEN HERE
+              _bottomButton(
+                icon: Icons.people_outline,
+                title: 'Recent Been Here',
+                iconColor: const Color(0xFF68638B),
+                backgroundColor: const Color(0xFFECE8F2),
+                onTap: () {
+                  // TODO
+                },
+              ),
+            ],
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.recent_actors_rounded,
-              color: Colors.blueGrey,
-              size: 30,
+        ),
+      ),
+    );
+  }
+
+  Widget _bottomButton({
+    required IconData icon,
+    required String title,
+    required Color iconColor,
+    required Color backgroundColor,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 105,
+        child: Column(
+          children: [
+            Container(
+              height: 65,
+              width: 65,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: backgroundColor,
+              ),
+              child: Icon(icon, size: 34, color: iconColor),
             ),
-            onPressed: () {
-              // Handle profile button press
-            },
-          ),
-        ],
+
+            const SizedBox(height: 10),
+
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF526B7A),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
