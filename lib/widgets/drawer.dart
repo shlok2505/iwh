@@ -78,8 +78,6 @@ class CustomDrawer extends StatelessWidget {
                     icon: Icons.person_outline,
                     title: 'Profile',
                     onTap: () {
-                      Navigator.pop(context);
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -94,8 +92,6 @@ class CustomDrawer extends StatelessWidget {
                     icon: Icons.people_outline,
                     title: 'Friends',
                     onTap: () {
-                      Navigator.pop(context);
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -110,8 +106,6 @@ class CustomDrawer extends StatelessWidget {
                     icon: Icons.account_box_outlined,
                     title: 'User Info',
                     onTap: () {
-                      Navigator.pop(context);
-
                       Navigator.push(
                         context,
                         MaterialPageRoute(

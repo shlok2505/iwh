@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iwh/screens/pastFp.dart';
+import 'package:iwh/screens/detailFp.dart';
 
 class HomeBottom extends StatelessWidget {
   const HomeBottom({super.key});
@@ -35,7 +37,10 @@ class HomeBottom extends StatelessWidget {
                 iconColor: const Color(0xFF607D6B),
                 backgroundColor: const Color(0xFFE5EBDD),
                 onTap: () {
-                  // TODO
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PastFp()),
+                  );
                 },
               ),
 
