@@ -2,144 +2,162 @@ import '../models/footprint.dart';
 
 final List<Footprint> footprints = [
   Footprint(
-    id: '1',
-    place: 'Kedarnath',
-    date: '12 Jun 2025',
-    time: '08:45 AM',
-    image: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800',
+    id: 'fp001',
+    place: 'Marine Drive, Mumbai',
+    date: '10 Aug 2026',
+    time: '6:45 PM',
+    image: 'assets/images/marine_drive.jpg',
     isPublic: true,
 
-    photoCount: 12,
-    videoCount: 2,
-    audioCount: 1,
-
-    description:
-        'The most divine and challenging journey of my life. The mountains, the cold and the vibes made this journey unforgettable.',
-
-    companions: ['Rishav', 'Manav', 'Suryansh', 'Aman'],
-
-    highlights: ['Trekking', 'Temple Visit', 'Photography', 'Meditation'],
-
-    audioNote: 'My memories from the trek...',
-
-    notes:
-        'Started the trek at 4:00 AM. Weather was very cold. Reached the temple at 8:45 AM.',
-  ),
-
-  Footprint(
-    id: '2',
-    place: 'Varanasi',
-    date: '28 May 2025',
-    time: '06:30 PM',
-    image: 'https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=800',
-    isPublic: true,
-
-    photoCount: 18,
-    videoCount: 3,
-    audioCount: 2,
-
-    description:
-        'A beautiful evening at the ghats of Varanasi. The atmosphere during Ganga Aarti was unforgettable.',
-
-    companions: ['Rishav', 'Aman'],
-
-    highlights: ['Ganga Aarti', 'Photography', 'Exploring'],
-
-    audioNote: 'Ganga Aarti recording',
-
-    notes:
-        'Reached the ghats around sunset and spent the evening exploring Varanasi.',
-  ),
-
-  Footprint(
-    id: '3',
-    place: 'Lonavala',
-    date: '10 May 2025',
-    time: '11:20 AM',
-    image: 'https://images.unsplash.com/photo-1593693411515-c20261bcad6e?w=800',
-    isPublic: false,
-
-    photoCount: 15,
+    photoCount: 4,
     videoCount: 1,
     audioCount: 0,
 
     description:
-        'A peaceful escape into the hills with waterfalls, greenery and lots of fun.',
+        'A peaceful evening at Marine Drive with a beautiful sunset and cool sea breeze.',
 
-    companions: ['Manav', 'Suryansh'],
+    companions: ['Rahul', 'Aditya'],
 
-    highlights: ['Trekking', 'Waterfall', 'Photography'],
+    highlights: ['Sunset', 'Sea view', 'Evening walk'],
 
-    notes: 'Perfect weather and an amazing day.',
+    audioNote: null,
+
+    notes: 'One of the best places to relax after a long day.',
+
+    latitude: 18.9431,
+    longitude: 72.8236,
+
+    userName: 'Rahul',
+    userProfileImage: 'assets/images/rahul.jpg',
+
+    isFriend: true,
   ),
 
   Footprint(
-    id: '4',
-    place: 'Jaipur',
-    date: '05 May 2025',
-    time: '04:15 PM',
-    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=800',
+    id: 'fp002',
+    place: 'Juhu Beach, Mumbai',
+    date: '10 Aug 2026',
+    time: '5:20 PM',
+    image: 'assets/images/juhu_beach.jpg',
     isPublic: true,
 
-    photoCount: 20,
+    photoCount: 5,
     videoCount: 2,
     audioCount: 1,
 
     description:
-        'Exploring the beautiful architecture and history of the Pink City.',
+        'Spent a relaxing evening watching the waves and walking along the beach.',
 
-    companions: ['Rishav', 'Aman', 'Manav'],
+    companions: ['Priya'],
 
-    highlights: ['Heritage', 'Photography', 'Food'],
+    highlights: ['Beach', 'Sunset', 'Street food'],
 
-    audioNote: 'Thoughts from Jaipur',
+    audioNote: 'The waves were incredibly peaceful today.',
 
-    notes: 'Visited Hawa Mahal and City Palace.',
+    notes: 'Would definitely come back here during sunset.',
+
+    latitude: 19.0988,
+    longitude: 72.8268,
+
+    userName: 'Priya',
+    userProfileImage: 'assets/images/priya.jpg',
+
+    isFriend: true,
   ),
 
   Footprint(
-    id: '5',
-    place: 'Goa',
-    date: '20 Apr 2025',
-    time: '09:10 AM',
-    image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800',
+    id: 'fp003',
+    place: 'Gateway of India, Mumbai',
+    date: '10 Aug 2026',
+    time: '3:15 PM',
+    image: 'assets/images/gateway.jpg',
     isPublic: true,
 
-    photoCount: 14,
-    videoCount: 2,
+    photoCount: 3,
+    videoCount: 0,
     audioCount: 0,
 
     description:
-        'A relaxing beach trip filled with sunsets, food and good memories.',
+        'Visited one of Mumbai’s most iconic landmarks and spent some time near the waterfront.',
 
-    companions: ['Suryansh', 'Aman'],
+    companions: [],
 
-    highlights: ['Beach', 'Sunset', 'Food'],
+    highlights: ['Architecture', 'Waterfront', 'Photography'],
 
-    notes: 'Spent the morning at the beach.',
+    audioNote: null,
+
+    notes: 'The architecture looks incredible in the afternoon light.',
+
+    latitude: 18.9220,
+    longitude: 72.8347,
+
+    userName: 'Anonymous',
+    userProfileImage: null,
+
+    isFriend: false,
   ),
 
   Footprint(
-    id: '6',
-    place: 'Nainital',
-    date: '15 Apr 2025',
-    time: '07:00 PM',
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800',
-    isPublic: false,
+    id: 'fp004',
+    place: 'Bandra Fort, Mumbai',
+    date: '10 Aug 2026',
+    time: '8:10 AM',
+    image: 'assets/images/bandra_fort.jpg',
+    isPublic: true,
 
-    photoCount: 10,
+    photoCount: 2,
     videoCount: 1,
+    audioCount: 0,
+
+    description:
+        'A quiet morning walk around Bandra Fort with a beautiful view of the sea.',
+
+    companions: [],
+
+    highlights: ['Morning', 'Sea view', 'Photography'],
+
+    audioNote: null,
+
+    notes: 'Very peaceful in the morning before it gets crowded.',
+
+    latitude: 19.0437,
+    longitude: 72.8194,
+
+    userName: 'Wanderer',
+    userProfileImage: null,
+
+    isFriend: false,
+  ),
+
+  Footprint(
+    id: 'fp005',
+    place: 'Sanjay Gandhi National Park',
+    date: '8 Aug 2026',
+    time: '11:30 AM',
+    image: 'assets/images/national_park.jpg',
+    isPublic: true,
+
+    photoCount: 6,
+    videoCount: 2,
     audioCount: 1,
 
     description:
-        'A calm mountain getaway surrounded by beautiful lakes and hills.',
+        'A refreshing escape from the city surrounded by greenery and nature.',
 
-    companions: ['Manav'],
+    companions: ['Rahul'],
 
-    highlights: ['Lake', 'Mountains', 'Boating'],
+    highlights: ['Nature', 'Greenery', 'Walking'],
 
-    audioNote: 'Lake-side recording',
+    audioNote: 'It feels completely different from the rest of Mumbai.',
 
-    notes: 'Went boating in the evening.',
+    notes: 'Great place to spend a few quiet hours away from the city.',
+
+    latitude: 19.2147,
+    longitude: 72.9106,
+
+    userName: 'Rahul',
+    userProfileImage: 'assets/images/rahul.jpg',
+
+    isFriend: true,
   ),
 ];

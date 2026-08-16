@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iwh/screens/pastFp.dart';
 import 'package:iwh/screens/detailFp.dart';
+import 'package:iwh/screens/aroundMe.dart';
+import 'package:iwh/screens/info.dart';
 
 class HomeBottom extends StatelessWidget {
   const HomeBottom({super.key});
@@ -51,18 +53,26 @@ class HomeBottom extends StatelessWidget {
                 iconColor: const Color(0xFF526B7A),
                 backgroundColor: const Color(0xFFE4EDF2),
                 onTap: () {
-                  // TODO: Navigate to About screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutThisPlace(),
+                    ),
+                  );
                 },
               ),
 
               // RECENT BEEN HERE
               _bottomButton(
                 icon: Icons.people_outline,
-                title: 'Recent Been Here',
+                title: 'Around Me',
                 iconColor: const Color(0xFF68638B),
                 backgroundColor: const Color(0xFFECE8F2),
                 onTap: () {
-                  // TODO
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AroundMe()),
+                  );
                 },
               ),
             ],

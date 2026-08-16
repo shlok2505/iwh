@@ -20,6 +20,15 @@ class Footprint {
   final String? audioNote;
 
   final String notes;
+  // Around Me
+  final double latitude;
+  final double longitude;
+
+  final String userName;
+  final String? userProfileImage;
+
+  // true = friend, false = public/random
+  final bool isFriend;
 
   Footprint({
     required this.id,
@@ -36,5 +45,10 @@ class Footprint {
     required this.highlights,
     this.audioNote,
     required this.notes,
+    required this.latitude,
+    required this.longitude,
+    required this.userName,
+    this.userProfileImage,
+    required this.isFriend,
   });
 }
