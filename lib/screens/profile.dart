@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import '../models/user.dart';
+import '../data/user.dart';
+import '../data/footprint.dart';
+import '../widgets/footprint_card.dart';
+import 'pastFp.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  final User? user;
+
+  const Profile({super.key, this.user});
 
   @override
   Widget build(BuildContext context) {
+    final profileUser = user ?? currentUser;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -13,9 +22,9 @@ class Profile extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          profileUser.isCurrentUser ? 'My Profile' : profileUser.name,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -31,44 +40,62 @@ class Profile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Profile Avatar
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 55,
-                    child: Icon(Icons.person, size: 60),
+                    backgroundColor: Colors.blue.shade100,
+                    backgroundImage: profileUser.avatarUrl != null
+                        ? NetworkImage(profileUser.avatarUrl!)
+                        : null,
+                    child: profileUser.avatarUrl == null
+                        ? Text(
+                            profileUser.name.isNotEmpty
+                                ? profileUser.name.substring(0, 1).toUpperCase()
+                                : 'U',
+                            style: const TextStyle(
+                              fontSize: 42,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          )
+                        : null,
                   ),
 
                   const SizedBox(width: 15),
 
                   // Name and information
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Shlok Singh',
-                          style: TextStyle(
+                          profileUser.name,
+                          style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
 
-                        SizedBox(height: 6),
-
-                        Text('@shlok_here', style: TextStyle(fontSize: 15)),
-
-                        SizedBox(height: 8),
+                        const SizedBox(height: 6),
 
                         Text(
-                          'Traveller • Explorer • Dreamer',
-                          style: TextStyle(fontSize: 14),
+                          '@${profileUser.username.replaceAll('@', '')}',
+                          style: const TextStyle(fontSize: 15),
                         ),
 
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
+
+                        Text(
+                          profileUser.bio,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+
+                        const SizedBox(height: 8),
 
                         Row(
                           children: [
-                            Icon(Icons.location_on, size: 18),
-                            SizedBox(width: 4),
-                            Text('Mumbai, India'),
+                            const Icon(Icons.location_on, size: 18),
+                            const SizedBox(width: 4),
+                            Text(profileUser.city),
                           ],
                         ),
                       ],
@@ -82,9 +109,9 @@ class Profile extends StatelessWidget {
 
                       const SizedBox(height: 5),
 
-                      const Text(
-                        '128',
-                        style: TextStyle(
+                      Text(
+                        '${profileUser.friendsCount}',
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
@@ -98,9 +125,9 @@ class Profile extends StatelessWidget {
 
                       const SizedBox(height: 5),
 
-                      const Text(
-                        '56',
-                        style: TextStyle(
+                      Text(
+                        '${profileUser.footprintCount}',
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
@@ -168,35 +195,44 @@ class Profile extends StatelessWidget {
               const SizedBox(height: 30),
 
               // ---------------- FOOTPRINTS ----------------
-              _sectionHeader(Icons.location_on, 'My Footprints'),
-
-              const SizedBox(height: 10),
-
-              const _Footprint(
-                icon: Icons.beach_access,
-                title: 'Juhu Beach',
-                location: 'Mumbai, India',
-                time: 'Yesterday • Photo',
+              _sectionHeader(
+                Icons.location_on,
+                profileUser.isCurrentUser
+                    ? 'My Footprints'
+                    : "${profileUser.name.split(' ').first}'s Footprints",
               ),
 
-              const _Footprint(
-                icon: Icons.terrain,
-                title: 'Lonavala Hills',
-                location: 'Lonavala, Maharashtra',
-                time: '3 days ago • Photo',
+              const SizedBox(height: 12),
+
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: footprints.length.clamp(0, 4),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  childAspectRatio: 0.68,
+                ),
+                itemBuilder: (context, index) {
+                  return FootprintCard(
+                    footprint: footprints[index],
+                    isCompact: true,
+                  );
+                },
               ),
 
-              const _Footprint(
-                icon: Icons.account_balance,
-                title: 'Gateway of India',
-                location: 'Mumbai, India',
-                time: '1 week ago • Story',
-              ),
-
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
 
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PastFp(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'View all footprints →',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -278,79 +314,4 @@ class _Achievement extends StatelessWidget {
   }
 }
 
-// ============================================================
-// FOOTPRINT WIDGET
-// ============================================================
 
-class _Footprint extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String location;
-  final String time;
-
-  const _Footprint({
-    required this.icon,
-    required this.title,
-    required this.location,
-    required this.time,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-
-      padding: const EdgeInsets.all(12),
-
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-
-      child: Row(
-        children: [
-          // Placeholder for footprint image
-          Container(
-            width: 80,
-            height: 70,
-
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.grey.shade200,
-            ),
-
-            child: Icon(icon, size: 35),
-          ),
-
-          const SizedBox(width: 12),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 5),
-
-                Text(location),
-
-                const SizedBox(height: 5),
-
-                Text(time, style: TextStyle(color: Colors.grey.shade600)),
-              ],
-            ),
-          ),
-
-          const Icon(Icons.more_vert),
-        ],
-      ),
-    );
-  }
-}

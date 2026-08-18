@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../data/footprint.dart';
 import '../models/footprint.dart';
+import 'detailFp.dart';
 import 'dart:ui' as ui;
 
 class AroundMe extends StatefulWidget {
@@ -271,7 +272,12 @@ class _AroundMeState extends State<AroundMe> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: footprint.userProfileImage != null
-                ? Image.asset(footprint.userProfileImage!, fit: BoxFit.cover)
+                ? Image.network(
+                    footprint.userProfileImage!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) =>
+                        const Icon(Icons.person, color: Colors.grey),
+                  )
                 : const Icon(Icons.person, color: Colors.grey),
           ),
         ),
@@ -312,7 +318,14 @@ class _AroundMeState extends State<AroundMe> {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(11),
-                child: Image.asset(footprint.image, fit: BoxFit.cover),
+                child: Image.network(
+                  footprint.image,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    color: Colors.grey.shade200,
+                    child: const Icon(Icons.place, color: Colors.grey),
+                  ),
+                ),
               ),
             ),
 
@@ -498,7 +511,12 @@ class _AroundMeState extends State<AroundMe> {
 
     return GestureDetector(
       onTap: () {
-        _showFootprintPreview(footprint);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FootprintDetail(footprint: footprint),
+          ),
+        );
       },
       child: Container(
         width: 190,
@@ -526,11 +544,16 @@ class _AroundMeState extends State<AroundMe> {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(18),
                   ),
-                  child: Image.asset(
+                  child: Image.network(
                     footprint.image,
                     height: 135,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      height: 135,
+                      color: Colors.grey.shade200,
+                      child: const Icon(Icons.broken_image, color: Colors.grey),
+                    ),
                   ),
                 ),
 
@@ -668,8 +691,13 @@ class _AroundMeState extends State<AroundMe> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
-
-                    // Later connect this to detailFp.dart.
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            FootprintDetail(footprint: footprint),
+                      ),
+                    );
                   },
                   child: const Text('View Footprint'),
                 ),

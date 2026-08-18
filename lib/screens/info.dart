@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import '../models/place.dart';
+import '../data/place.dart';
 
 class AboutThisPlace extends StatelessWidget {
-  const AboutThisPlace({super.key});
+  final Place? place;
+
+  const AboutThisPlace({super.key, this.place});
 
   @override
   Widget build(BuildContext context) {
+    final currentPlace = place ?? defaultPlace;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF7F8FA),
       body: SafeArea(
@@ -21,8 +27,7 @@ class AboutThisPlace extends StatelessWidget {
                     height: 310,
                     width: double.infinity,
                     child: Image.network(
-                      'https://images.unsplash.com/photo-1595658658481-d53d3f999875'
-                      '?auto=format&fit=crop&w=1200&q=80',
+                      currentPlace.heroImage,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) {
                         return Container(
@@ -82,9 +87,9 @@ class AboutThisPlace extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Mumbai',
-                          style: TextStyle(
+                        Text(
+                          currentPlace.name,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 38,
                             fontWeight: FontWeight.bold,
@@ -92,16 +97,16 @@ class AboutThisPlace extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.location_on_outlined,
                               color: Colors.white,
                               size: 19,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              'Near your current location',
-                              style: TextStyle(
+                              currentPlace.tagline,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                               ),
@@ -118,18 +123,18 @@ class AboutThisPlace extends StatelessWidget {
                             color: Colors.black.withOpacity(0.45),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                Icons.location_searching,
+                              const Icon(
+                                Icons.category_outlined,
                                 color: Colors.white,
                                 size: 16,
                               ),
-                              SizedBox(width: 7),
+                              const SizedBox(width: 7),
                               Text(
-                                'Change location',
-                                style: TextStyle(
+                                currentPlace.category,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -164,7 +169,7 @@ class AboutThisPlace extends StatelessWidget {
                   itemCount: nearbyPlaces.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 14),
                   itemBuilder: (context, index) {
-                    return _placeCard(nearbyPlaces[index]);
+                    return _placeCard(context, nearbyPlaces[index]);
                   },
                 ),
               ),
@@ -193,12 +198,8 @@ class AboutThisPlace extends StatelessWidget {
                       _infoSection(
                         icon: Icons.info_outline_rounded,
                         iconColor: const Color(0xFF5797E8),
-                        title: 'About Mumbai',
-                        description:
-                            "Mumbai is India's financial capital and one of "
-                            "the country's most vibrant coastal cities. "
-                            "Famous for its dreams, culture, nightlife and "
-                            "iconic landmarks.",
+                        title: 'About ${currentPlace.name}',
+                        description: currentPlace.about,
                         onTap: () {},
                       ),
 
@@ -213,11 +214,7 @@ class AboutThisPlace extends StatelessWidget {
                         icon: Icons.history_rounded,
                         iconColor: const Color(0xFF8064D9),
                         title: 'History',
-                        description:
-                            'Originally a cluster of seven islands, Mumbai '
-                            'has a rich colonial history and has grown into '
-                            "the heart of India's economy, arts and "
-                            'entertainment.',
+                        description: currentPlace.history,
                         onTap: () {},
                       ),
                     ],
@@ -232,7 +229,7 @@ class AboutThisPlace extends StatelessWidget {
               // ============================================================
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: _weatherCard(),
+                child: _weatherCard(currentPlace),
               ),
 
               const SizedBox(height: 28),
@@ -334,127 +331,162 @@ class AboutThisPlace extends StatelessWidget {
   // PLACE CARD
   // ========================================================================
 
-  Widget _placeCard(Map<String, dynamic> place) {
-    return Container(
-      width: 210,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(17),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-            color: Colors.black.withOpacity(0.08),
-          ),
-        ],
+  Widget _placeCard(BuildContext context, Map<String, dynamic> place) {
+    final placeName = place['name'] as String;
+    final targetPlace = mockPlaces.firstWhere(
+      (p) => p.name.toLowerCase().contains(placeName.toLowerCase()),
+      orElse: () => Place(
+        id: 'place_${placeName.toLowerCase().replaceAll(' ', '_')}',
+        name: placeName,
+        tagline: place['type'] ?? 'Iconic Destination',
+        category: place['type'] ?? 'Landmark',
+        city: 'Mumbai, Maharashtra',
+        latitude: 18.9431,
+        longitude: 72.8236,
+        heroImage: place['image'] ?? defaultPlace.heroImage,
+        about:
+            'One of the most remarkable destinations in Mumbai, cherished by locals and tourists alike.',
+        history:
+            'A historic spot deeply tied to the cultural fabric and architectural heritage of Mumbai.',
+        rating: double.tryParse(place['rating']?.toString() ?? '4.5') ?? 4.5,
+        reviewCount: 850,
+        weatherTemp: '28°C',
+        weatherCondition: 'Sunny / Coastal',
+        bestTime: 'Morning or Sunset',
+        totalFootprints: 110,
       ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                height: 135,
-                width: double.infinity,
-                child: Image.network(
-                  place['image'],
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) {
-                    return Container(
-                      color: Colors.grey.shade200,
-                      child: const Icon(
-                        Icons.image_outlined,
-                        size: 45,
-                        color: Colors.grey,
-                      ),
-                    );
-                  },
-                ),
-              ),
+    );
 
-              Positioned(
-                right: 9,
-                top: 9,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 9,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Text(
-                    place['distance'],
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AboutThisPlace(place: targetPlace),
           ),
-
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        );
+      },
+      child: Container(
+        width: 210,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(17),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+              color: Colors.black.withOpacity(0.08),
+            ),
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                Text(
-                  place['name'],
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 135,
+                  width: double.infinity,
+                  child: Image.network(
+                    place['image'],
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) {
+                      return Container(
+                        color: Colors.grey.shade200,
+                        child: const Icon(
+                          Icons.image_outlined,
+                          size: 45,
+                          color: Colors.grey,
+                        ),
+                      );
+                    },
                   ),
                 ),
 
-                const SizedBox(height: 7),
-
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star_rounded,
-                      color: Colors.amber,
-                      size: 18,
+                Positioned(
+                  right: 9,
+                  top: 9,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 9,
+                      vertical: 5,
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      '${place['rating']} (${place['reviews']})',
-                      style: TextStyle(
-                        color: Colors.grey.shade700,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Text(
+                      place['distance'],
+                      style: const TextStyle(
                         fontSize: 12,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 7),
-
-                Row(
-                  children: [
-                    Icon(place['icon'], color: Colors.grey.shade600, size: 17),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: Text(
-                        place['type'],
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    place['name'],
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 7),
+
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.star_rounded,
+                        color: Colors.amber,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${place['rating']} (${place['reviews']})',
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 7),
+
+                  Row(
+                    children: [
+                      Icon(place['icon'], color: Colors.grey.shade600, size: 17),
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: Text(
+                          place['type'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -549,7 +581,7 @@ class AboutThisPlace extends StatelessWidget {
   // WEATHER
   // ========================================================================
 
-  Widget _weatherCard() {
+  Widget _weatherCard(Place currentPlace) {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -580,18 +612,18 @@ class AboutThisPlace extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      '28°C',
-                      style: TextStyle(
+                      currentPlace.weatherTemp,
+                      style: const TextStyle(
                         fontSize: 38,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     Text(
-                      'Partly Cloudy',
-                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                      currentPlace.weatherCondition,
+                      style: const TextStyle(color: Colors.grey, fontSize: 13),
                     ),
                   ],
                 ),

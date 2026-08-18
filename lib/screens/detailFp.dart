@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../models/footprint.dart';
+import '../models/footprint.dart';
+import '../models/user.dart';
+import '../data/user.dart';
+import 'profile.dart';
 
 class FootprintDetail extends StatelessWidget {
   final Footprint footprint;
@@ -59,7 +62,20 @@ class FootprintDetail extends StatelessWidget {
 
                 children: [
                   // IMAGE
-                  Image.network(footprint.image, fit: BoxFit.cover),
+                  Image.network(
+                    footprint.image,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      color: const Color(0xFF4A5568),
+                      child: const Center(
+                        child: Icon(
+                          Icons.image_not_supported_rounded,
+                          color: Colors.white54,
+                          size: 48,
+                        ),
+                      ),
+                    ),
+                  ),
 
                   // GRADIENT
                   DecoratedBox(
@@ -267,35 +283,69 @@ class FootprintDetail extends StatelessWidget {
 
                       itemBuilder: (context, index) {
                         final person = footprint.companions[index];
+                        final companionUser = mockUsers.firstWhere(
+                          (u) =>
+                              u.name.toLowerCase().contains(person.toLowerCase()),
+                          orElse: () => User(
+                            id: 'companion_${person.toLowerCase().replaceAll(' ', '_')}',
+                            name: person,
+                            username:
+                                person.toLowerCase().replaceAll(' ', '_'),
+                            email:
+                                '${person.toLowerCase().replaceAll(' ', '')}@example.com',
+                            bio:
+                                'Travel companion & explorer on I Was Here.',
+                            city: 'Mumbai, India',
+                            age: 23,
+                            achievement: 'Explorer',
+                            footprintCount: 38,
+                            friendsCount: 52,
+                            isFriend: true,
+                          ),
+                        );
 
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 18),
-
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 27,
-
-                                backgroundColor: Colors.grey.shade300,
-
-                                child: Text(
-                                  person[0],
-
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Profile(user: companionUser),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 18),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 27,
+                                  backgroundColor: const Color(0xFFE2E8F0),
+                                  backgroundImage: companionUser.avatarUrl != null
+                                      ? NetworkImage(companionUser.avatarUrl!)
+                                      : null,
+                                  child: companionUser.avatarUrl == null
+                                      ? Text(
+                                          person.isNotEmpty ? person[0].toUpperCase() : 'U',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF2B6CB0),
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  person,
                                   style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
                                   ),
                                 ),
-                              ),
-
-                              const SizedBox(height: 5),
-
-                              Text(
-                                person,
-
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },

@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
+import '../models/user.dart';
+import '../data/user.dart';
 
 class UserInfo extends StatefulWidget {
-  const UserInfo({super.key});
+  final User? user;
+
+  const UserInfo({super.key, this.user});
 
   @override
   State<UserInfo> createState() => _UserInfoState();
 }
 
 class _UserInfoState extends State<UserInfo> {
-  final nameController = TextEditingController(text: 'Shlok Singh');
-  final usernameController = TextEditingController(text: '@shlok_singh');
-  final ageController = TextEditingController(text: '21');
-  final bioController = TextEditingController(
-    text: 'Traveller • Explorer • Dreamer\nCollecting footprints, not things.',
-  );
-  final emailController = TextEditingController(text: 'shloksingh25@gmail.com');
-  final cityController = TextEditingController(text: 'Mumbai, India');
+  late final TextEditingController nameController;
+  late final TextEditingController usernameController;
+  late final TextEditingController ageController;
+  late final TextEditingController bioController;
+  late final TextEditingController emailController;
+  late final TextEditingController cityController;
+
+  @override
+  void initState() {
+    super.initState();
+    final targetUser = widget.user ?? currentUser;
+    nameController = TextEditingController(text: targetUser.name);
+    usernameController = TextEditingController(
+      text: '@${targetUser.username.replaceAll('@', '')}',
+    );
+    ageController = TextEditingController(text: '${targetUser.age}');
+    bioController = TextEditingController(text: targetUser.bio);
+    emailController = TextEditingController(text: targetUser.email);
+    cityController = TextEditingController(text: targetUser.city);
+  }
 
   @override
   void dispose() {

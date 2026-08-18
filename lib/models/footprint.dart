@@ -3,31 +3,20 @@ class Footprint {
   final String place;
   final String date;
   final String time;
-
   final String image;
-
   final bool isPublic;
-
   final int photoCount;
   final int videoCount;
   final int audioCount;
-
   final String description;
-
   final List<String> companions;
   final List<String> highlights;
-
   final String? audioNote;
-
   final String notes;
-  // Around Me
   final double latitude;
   final double longitude;
-
   final String userName;
   final String? userProfileImage;
-
-  // true = friend, false = public/random
   final bool isFriend;
 
   Footprint({
@@ -51,4 +40,52 @@ class Footprint {
     this.userProfileImage,
     required this.isFriend,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'place': place,
+      'date': date,
+      'time': time,
+      'image': image,
+      'isPublic': isPublic,
+      'photoCount': photoCount,
+      'videoCount': videoCount,
+      'audioCount': audioCount,
+      'description': description,
+      'companions': companions,
+      'highlights': highlights,
+      'audioNote': audioNote,
+      'notes': notes,
+      'latitude': latitude,
+      'longitude': longitude,
+      'userName': userName,
+      'userProfileImage': userProfileImage,
+      'isFriend': isFriend,
+    };
+  }
+
+  factory Footprint.fromMap(Map<String, dynamic> map) {
+    return Footprint(
+      id: map['id'] ?? '',
+      place: map['place'] ?? '',
+      date: map['date'] ?? '',
+      time: map['time'] ?? '',
+      image: map['image'] ?? '',
+      isPublic: map['isPublic'] ?? true,
+      photoCount: map['photoCount'] ?? 0,
+      videoCount: map['videoCount'] ?? 0,
+      audioCount: map['audioCount'] ?? 0,
+      description: map['description'] ?? '',
+      companions: List<String>.from(map['companions'] ?? []),
+      highlights: List<String>.from(map['highlights'] ?? []),
+      audioNote: map['audioNote'],
+      notes: map['notes'] ?? '',
+      latitude: (map['latitude'] as num?)?.toDouble() ?? 0.0,
+      longitude: (map['longitude'] as num?)?.toDouble() ?? 0.0,
+      userName: map['userName'] ?? '',
+      userProfileImage: map['userProfileImage'],
+      isFriend: map['isFriend'] ?? false,
+    );
+  }
 }

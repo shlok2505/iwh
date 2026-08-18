@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iwh/screens/pastFp.dart';
-import 'package:iwh/screens/detailFp.dart';
 import 'package:iwh/screens/aroundMe.dart';
 import 'package:iwh/screens/info.dart';
 
