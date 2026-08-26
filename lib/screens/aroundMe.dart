@@ -3,8 +3,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../data/footprint.dart';
-import '../models/footprint.dart';
-import 'detailFp.dart';
+import '../models/presence.dart';
+import 'presenceSc.dart';
 import 'dart:ui' as ui;
 
 class AroundMe extends StatefulWidget {
@@ -25,7 +25,7 @@ class _AroundMeState extends State<AroundMe> {
   Widget build(BuildContext context) {
     // Only public footprints can appear in Around Me.
     final nearbyFootprints = footprints
-        .where((footprint) => footprint.isPublic)
+        .where((footprint) => footprint.isPublic && !footprint.isMemory)
         .toList();
 
     final friendCount = nearbyFootprints

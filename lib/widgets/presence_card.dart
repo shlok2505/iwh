@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/footprint.dart';
-import '../screens/detailFp.dart';
+import '../models/presence.dart';
+import '../screens/presenceSc.dart';
 
 class FootprintCard extends StatelessWidget {
   final Footprint footprint;
@@ -32,7 +32,7 @@ class FootprintCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.07),
+              color: Colors.black.withValues(alpha: 0.07),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -76,7 +76,7 @@ class FootprintCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.55),
+                        color: Colors.black.withValues(alpha: 0.55),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -116,7 +116,7 @@ class FootprintCard extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.9),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Row(

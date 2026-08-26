@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../models/user.dart';
 import '../data/user.dart';
 import '../data/footprint.dart';
-import '../widgets/footprint_card.dart';
-import 'pastFp.dart';
+import '../widgets/presence_card.dart';
+import 'pastPresence.dart';
 
 class Profile extends StatelessWidget {
   final User? user;
@@ -126,7 +126,7 @@ class Profile extends StatelessWidget {
                       const SizedBox(height: 5),
 
                       Text(
-                        '${profileUser.footprintCount}',
+                        '${profileUser.presenceCount}',
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -228,9 +228,7 @@ class Profile extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const PastFp(),
-                    ),
+                    MaterialPageRoute(builder: (context) => const PastFp()),
                   );
                 },
                 child: const Text(
@@ -313,5 +311,3 @@ class _Achievement extends StatelessWidget {
     );
   }
 }
-
-

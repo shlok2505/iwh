@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../data/footprint.dart';
-import '../models/footprint.dart';
-import '../widgets/footprint_card.dart';
+import '../models/presence.dart';
+import '../widgets/presence_card.dart';
 
 class PastFp extends StatelessWidget {
   const PastFp({super.key});

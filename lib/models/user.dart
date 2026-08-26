@@ -8,7 +8,7 @@ class User {
   final String? avatarUrl;
   final int age;
   final String achievement;
-  final int footprintCount;
+  final int presenceCount;
   final int friendsCount;
   final bool isFriend;
   final bool isCurrentUser;
@@ -23,7 +23,7 @@ class User {
     this.avatarUrl,
     required this.age,
     required this.achievement,
-    required this.footprintCount,
+    required this.presenceCount,
     required this.friendsCount,
     this.isFriend = false,
     this.isCurrentUser = false,
@@ -40,7 +40,7 @@ class User {
       'avatarUrl': avatarUrl,
       'age': age,
       'achievement': achievement,
-      'footprintCount': footprintCount,
+      'presenceCount': presenceCount,
       'friendsCount': friendsCount,
       'isFriend': isFriend,
       'isCurrentUser': isCurrentUser,
@@ -58,7 +58,7 @@ class User {
       avatarUrl: map['avatarUrl'],
       age: map['age'] ?? 0,
       achievement: map['achievement'] ?? 'Explorer',
-      footprintCount: map['footprintCount'] ?? 0,
+      presenceCount: map['presenceCount'] ?? 0,
       friendsCount: map['friendsCount'] ?? 0,
       isFriend: map['isFriend'] ?? false,
       isCurrentUser: map['isCurrentUser'] ?? false,
@@ -75,7 +75,7 @@ class User {
     String? avatarUrl,
     int? age,
     String? achievement,
-    int? footprintCount,
+    int? presenceCount,
     int? friendsCount,
     bool? isFriend,
     bool? isCurrentUser,
@@ -90,7 +90,7 @@ class User {
       avatarUrl: avatarUrl ?? this.avatarUrl,
       age: age ?? this.age,
       achievement: achievement ?? this.achievement,
-      footprintCount: footprintCount ?? this.footprintCount,
+      presenceCount: presenceCount ?? this.presenceCount,
       friendsCount: friendsCount ?? this.friendsCount,
       isFriend: isFriend ?? this.isFriend,
       isCurrentUser: isCurrentUser ?? this.isCurrentUser,

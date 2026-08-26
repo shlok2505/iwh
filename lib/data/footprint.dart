@@ -1,4 +1,4 @@
-import '../models/footprint.dart';
+import '../models/presence.dart';
 
 final List<Footprint> footprints = [
   Footprint(

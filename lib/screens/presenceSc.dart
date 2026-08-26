@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/footprint.dart';
+import '../models/presence.dart';
 import '../models/user.dart';
 import '../data/user.dart';
 import 'profile.dart';
@@ -28,7 +28,7 @@ class FootprintDetail extends StatelessWidget {
               padding: const EdgeInsets.all(8),
 
               child: CircleAvatar(
-                backgroundColor: Colors.white.withOpacity(0.9),
+                backgroundColor: Colors.white.withValues(alpha: 0.9),
 
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -45,7 +45,7 @@ class FootprintDetail extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 12),
 
                 child: CircleAvatar(
-                  backgroundColor: Colors.white.withOpacity(0.9),
+                  backgroundColor: Colors.white.withValues(alpha: 0.9),
 
                   child: IconButton(
                     icon: const Icon(Icons.more_vert, color: Colors.black),
@@ -86,7 +86,7 @@ class FootprintDetail extends StatelessWidget {
 
                         colors: [
                           Colors.transparent,
-                          Colors.black.withOpacity(0.75),
+                          Colors.black.withValues(alpha: 0.75),
                         ],
                       ),
                     ),
@@ -298,7 +298,7 @@ class FootprintDetail extends StatelessWidget {
                             city: 'Mumbai, India',
                             age: 23,
                             achievement: 'Explorer',
-                            footprintCount: 38,
+                            presenceCount: 38,
                             friendsCount: 52,
                             isFriend: true,
                           ),

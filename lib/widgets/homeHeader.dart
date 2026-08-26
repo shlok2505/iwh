@@ -23,7 +23,7 @@ class HomeHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
+                      color: Colors.black.withValues(alpha: 0.15),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -47,7 +47,7 @@ class HomeHeader extends StatelessWidget {
                 borderRadius: BorderRadius.circular(32),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.12),
+                    color: Colors.black.withValues(alpha: 0.12),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -65,8 +65,34 @@ class HomeHeader extends StatelessWidget {
 
             const Spacer(),
 
-            // Keeps title centered
-            const SizedBox(width: 58),
+            // NOTIFICATION BUTTON
+            GestureDetector(
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('No new notifications')),
+                );
+              },
+              child: Container(
+                height: 58,
+                width: 58,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F0E6),
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.15),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.notifications_none_outlined,
+                  size: 28,
+                  color: Color(0xFF526B7A),
+                ),
+              ),
+            ),
           ],
         ),
       ),

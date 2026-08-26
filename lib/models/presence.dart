@@ -1,4 +1,4 @@
-class Footprint {
+class Presence {
   final String id;
   final String place;
   final String date;
@@ -18,8 +18,11 @@ class Footprint {
   final String userName;
   final String? userProfileImage;
   final bool isFriend;
+  final bool isMemory;
+  final String? mood;
+  final bool isLocationLocked;
 
-  Footprint({
+  Presence({
     required this.id,
     required this.place,
     required this.date,
@@ -39,6 +42,9 @@ class Footprint {
     required this.userName,
     this.userProfileImage,
     required this.isFriend,
+    this.isMemory = false,
+    this.mood,
+    this.isLocationLocked = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -62,11 +68,14 @@ class Footprint {
       'userName': userName,
       'userProfileImage': userProfileImage,
       'isFriend': isFriend,
+      'isMemory': isMemory,
+      'mood': mood,
+      'isLocationLocked': isLocationLocked,
     };
   }
 
-  factory Footprint.fromMap(Map<String, dynamic> map) {
-    return Footprint(
+  factory Presence.fromMap(Map<String, dynamic> map) {
+    return Presence(
       id: map['id'] ?? '',
       place: map['place'] ?? '',
       date: map['date'] ?? '',
@@ -86,6 +95,11 @@ class Footprint {
       userName: map['userName'] ?? '',
       userProfileImage: map['userProfileImage'],
       isFriend: map['isFriend'] ?? false,
+      isMemory: map['isMemory'] ?? false,
+      mood: map['mood'],
+      isLocationLocked: map['isLocationLocked'] ?? false,
     );
   }
 }
+
+typedef Footprint = Presence;
